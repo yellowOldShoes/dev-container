@@ -6,8 +6,7 @@
     // 使用我们刚刚创建的那个开发环境Dockerfile
     "dockerfile": "Dockerfile"
   },
-  "initializeCommand": "echo 'https://mirrors.aliyun.com/alpine/v3.15/main' > /tmp/alpine-repositories && echo 'https://mirrors.aliyun.com/alpine/v3.15/community' >> /tmp/alpine-repositories",
-
+ "postCreateCommand": "sudo chown -R node:node /home/node/.ssh && sudo chmod 700 /home/node/.ssh && sudo chmod 600 /home/node/.ssh/*",
   // VS Code会自动在容器内安装这些扩展
   "customizations": {
     "vscode": {
@@ -17,22 +16,12 @@
       ]
     }
   },
-  // --- 添加或修改以下部分 ---
-  "runArgs": [
-    // 获取 SSH_AUTH_SOCK 环境变量的值
-    "--env", "SSH_AUTH_SOCK=${env:SSH_AUTH_SOCK}"
-  ],
-  "mounts": [
-    // 将 SSH Agent Socket 文件挂载到容器中
-    "source=${env:SSH_AUTH_SOCK},target=${env:SSH_AUTH_SOCK},type=bind"
-  ],
-  // --- 添加结束 ---
 
   // 自动将应用的8080端口和调试端口转发出来
   "forwardPorts": [8080, 5005],
 
   // 容器首次创建后，执行的命令 (比如检查maven版本)
-  "postCreateCommand": "mvn --version",
+  // "postCreateCommand": "mvn --version",
 
   // 在容器内使用的用户名 (这个基础镜像默认是vscode)
   "remoteUser": "vscode"

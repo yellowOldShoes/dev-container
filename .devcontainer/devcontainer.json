@@ -6,6 +6,7 @@
     // 使用我们刚刚创建的那个开发环境Dockerfile
     "dockerfile": "Dockerfile"
   },
+  "initializeCommand": "echo 'https://mirrors.aliyun.com/alpine/v3.15/main' > /tmp/alpine-repositories && echo 'https://mirrors.aliyun.com/alpine/v3.15/community' >> /tmp/alpine-repositories",
 
   // VS Code会自动在容器内安装这些扩展
   "customizations": {

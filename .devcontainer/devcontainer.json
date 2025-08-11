@@ -17,6 +17,16 @@
       ]
     }
   },
+  // --- 添加或修改以下部分 ---
+  "runArgs": [
+    // 获取 SSH_AUTH_SOCK 环境变量的值
+    "--env", "SSH_AUTH_SOCK=${env:SSH_AUTH_SOCK}"
+  ],
+  "mounts": [
+    // 将 SSH Agent Socket 文件挂载到容器中
+    "source=${env:SSH_AUTH_SOCK},target=${env:SSH_AUTH_SOCK},type=bind"
+  ],
+  // --- 添加结束 ---
 
   // 自动将应用的8080端口和调试端口转发出来
   "forwardPorts": [8080, 5005],

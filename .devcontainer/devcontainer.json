@@ -1,0 +1,30 @@
+{
+  "name": "Java Spring Boot Dev Environment",
+  // 使用 build 对象来构建我们的开发镜像
+  "build": {
+    "dockerfile": "Dockerfile",
+    // 我们可以通过 args 向 Dockerfile 传递 Java 版本
+    "args": { "VARIANT": "17" }
+  },
+
+  // VS Code 会自动将这些扩展安装到容器里
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "pivotal.vscode-boot-dev-pack",
+        "redhat.java",
+        "vscjava.vscode-maven"
+      ]
+    }
+  },
+
+  // 自动将应用的8080端口和调试的5005端口转发出来
+  "forwardPorts": [8080, 5005],
+
+  // 容器第一次创建成功后，执行 Maven 命令预热一下
+  "postCreateCommand": "mvn --version",
+
+  // 指定在容器内以 'vscode' 用户身份运行
+  "remoteUser": "vscode"
+}

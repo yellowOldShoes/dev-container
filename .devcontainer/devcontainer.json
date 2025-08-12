@@ -16,6 +16,12 @@
       ]
     }
   },
+   "mounts": [
+
+    // 【新增！】将宿主机的 Maven 配置文件挂载到容器的 .m2 目录
+    "source=${localEnv:HOME}/.m2/settings.xml,target=/home/vscode/.m2/settings.xml,type=bind,consistency=cached"
+  ],
+
 
   // 自动将应用的8080端口和调试端口转发出来
   "forwardPorts": [8080, 5005],
